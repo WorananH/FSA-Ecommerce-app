@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineRollback } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
-
+import loginUser from "../../api/api";
 import { AuthContext } from "./AuthContext";
-import httprequest from "../../utils/request";
 
 const User = () => {
   const { user: authUser } = useContext(AuthContext);
@@ -20,7 +19,7 @@ const User = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await httprequest.get(`/users/${id}`);
+        const response = await loginUser();
         setUser(response.data.data);
       } catch (err) {
         console.log(err);
@@ -32,12 +31,11 @@ const User = () => {
   const renderUser = () => {
     return (
       <div className="border border-[#ccc] p-4 rounded-md">
-        <h3>ID: {user.id}</h3>
-        <h3>Name: {user.first_name}</h3>
-        <p>Email: {user.email}</p>
+        <h3>Name: {user.username}</h3>
+        <p>Email: {user.password}</p>
         <img
           src={user.avatar}
-          alt={user.first_name}
+          alt={user.username}
           className="w-[100px] h-[100px] object-cover"
         />
       </div>

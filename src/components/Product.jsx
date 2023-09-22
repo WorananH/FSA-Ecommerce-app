@@ -1,6 +1,8 @@
-import React from "react";
-
-const ProductCard = ({ product, handleAddToCart }) => {
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+const ProductCard = ({ product }) => {
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
   const DollarUsd = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -12,18 +14,21 @@ const ProductCard = ({ product, handleAddToCart }) => {
         <img className="w-full h-full" src={product.image} alt={product.name} />
       </div>
       <p>{product.title}</p>
-      <h3 className="text-blue-800 font-bold">$ {product.price}</h3>
+      <h3 className="text-blue-800 font-bold">
+        {DollarUsd.format(product.price)}
+      </h3>
       <button
-        onClick={() => handleAddToCart(product)}
+        onClick={() => addToCart(product)}
         className="bg-gray-300 w-full rounded-lg py-1 mt-auto text-green-800 mb-2 hover:bg-gray-400 hover:text-white"
       >
         Buy Now
       </button>
       <button
-        onClick={() => handleAddToCart(product)}
+        onClick={() => product}
         className="bg-gray-300 w-full rounded-lg py-1  text-green-800 mb-2 hover:bg-gray-400 hover:text-white"
       >
         View More Details
+        <Link to="/product"></Link>
       </button>
     </div>
   );

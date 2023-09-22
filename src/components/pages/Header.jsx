@@ -1,16 +1,15 @@
-import react from "react";
 import logo from "../../assets/logo.png";
 import { BiPhoneCall } from "react-icons/bi";
 import { GiShoppingCart } from "react-icons/gi";
 import { Link } from "react-router-dom";
-import Login from "./Login";
+
 import { AuthContext } from "./AuthContext";
 import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 
-const Header = ({ setIsShowCart, cart }) => {
-  const { user } = useContext(AuthContext);
-
-  console.log(cart);
+const Header = ({ setIsShowCart }) => {
+  const { login, logout, isLoggedIn } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
 
   return (
     <div className="container mx-auto flex items-center justify-between bg-gray-400 ">
@@ -22,8 +21,10 @@ const Header = ({ setIsShowCart, cart }) => {
           </div>
 
           <div className="px-1 ">
-            {user.email ? (
-              <div className="font-bold text-gray-600">{user.email}</div>
+            {isLoggedIn ? (
+              <div className="font-bold text-gray-600">
+                <p onClick={logout}>Logout</p>
+              </div>
             ) : (
               <Link to="/login" className="bg-black text-white p-2 rounded-md">
                 Login

@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import httpRequest from "../../utils/request";
+import { loginUser } from "../../api/api";
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
@@ -10,12 +11,12 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const { user: authUser, login } = useContext(AuthContext);
-  useEffect(() => {
-    if (authUser.email) {
-      navigate("/");
-    }
-  }, [authUser.email, navigate]);
+  const { login } = useContext(AuthContext);
+  // useEffect(() => {
+  //   if (authUser.email) {
+  //     navigate("/");
+  //   }
+  // }, [authUser.email, navigate]);
 
   const handleChange = e => {
     setUser(prev => {
@@ -35,11 +36,8 @@ const Login = () => {
       return;
     }
     try {
-      const res = await httpRequest.post("login, user");
-      login({
-        email: user.email,
-        token: res.data.token,
-      });
+      const token = await loginUser(user.email, user.password);
+      login(token);
       navigate("/");
     } catch (err) {
       console.log("login failed", err);
@@ -49,7 +47,6 @@ const Login = () => {
   return (
     <div className=" inset-0 bg-[rgba(0,0,0,0.7)">
       <div className="">
-        <div>user: {`${user.name}`}</div>
         <form className="flex flex-col gap-2">
           <h1 className="text-[2.5rem]">Login</h1>
           <div className="flex flex-col">

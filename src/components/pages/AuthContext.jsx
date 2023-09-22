@@ -1,39 +1,33 @@
 import { createContext } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({
+  isLoggedIn: false,
+  login: () => {},
+  logout: () => {},
+});
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(
-    localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : {
-          email: "",
-          token: "",
-        }
-  );
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loginToken, setLoginToken] = useState(null);
 
-  const login = user => {
-    setUser(prev => {
-      return { ...prev, user };
-    });
-    localStorage.setItem("user", JSON.stringify(user));
+  const login = token => {
+    setLoginToken(token);
+    setIsLoggedIn(true);
   };
-
   const logout = () => {
-    setUser({
-      email: "",
-      token: "",
-    });
-    localStorage.removeItem("user");
+    setLoginToken(null);
+    setIsLoggedIn(false);
+    navigate("/login");
   };
 
-  const data = {
-    user,
-    login,
-    logout,
-  };
-  return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
