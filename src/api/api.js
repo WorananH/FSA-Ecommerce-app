@@ -4,6 +4,7 @@ const getAllProducts = async () => {
   try {
     const response = await fetch(`${BASE_URL}/products`);
     const productsData = await response.json();
+    console.log("products", productsData);
     return productsData;
   } catch (error) {
     console.log(error);

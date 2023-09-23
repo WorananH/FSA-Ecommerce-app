@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, setIsShowCart }) => {
+  const navigate = useNavigate();
+
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
+
   const DollarUsd = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -23,12 +27,14 @@ const ProductCard = ({ product }) => {
       >
         Buy Now
       </button>
+
       <button
-        onClick={() => product}
+        onClick={() => {
+          navigate(`/product/${product.id}`);
+        }}
         className="bg-gray-300 w-full rounded-lg py-1  text-green-800 mb-2 hover:bg-gray-400 hover:text-white"
       >
-        View More Details
-        <Link to="/product"></Link>
+        <p>View More Details</p>
       </button>
     </div>
   );

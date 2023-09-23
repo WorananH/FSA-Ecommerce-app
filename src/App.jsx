@@ -25,7 +25,15 @@ function App() {
               />
             }
           />
-          <Route path="/product/:id" element={<SingleProduct />} />
+          <Route
+            path="/product/:id"
+            element={
+              <SingleProduct
+                isShowCart={isShowCart}
+                setIsShowCart={setIsShowCart}
+              />
+            }
+          />
           <Route path="/login" element={<Login />} />
         </Routes>
       </CartProvider>

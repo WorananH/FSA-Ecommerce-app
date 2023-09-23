@@ -2,10 +2,14 @@ import { useEffect, useState, useContext } from "react";
 import { getSingleProduct } from "../api/api";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
-export const SingleProduct = () => {
+import { useNavigate } from "react-router-dom";
+import Cart from "./Cart";
+export const SingleProduct = ({ isShowCart, setIsShowCart }) => {
   const [product, setProduct] = useState({});
   const { id } = useParams();
-  const { addToCart } = useContext(CartContext);
+  //const { addToCart } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getproduct = async () => {
@@ -15,7 +19,7 @@ export const SingleProduct = () => {
       console.log(product);
     };
     getproduct();
-  }, [id, product]);
+  }, [id]);
 
   return (
     <>
@@ -26,7 +30,10 @@ export const SingleProduct = () => {
         <p>{product.description}</p>
         <img src={product.image} alt={product.title} />
         <button onClick={() => addToCart(product)}>ADD TO CART</button>
+        <hr />
+        <button onClick={() => navigate("/")}>Back to Home page</button>
       </div>
+      {isShowCart && <Cart cart={cart} setIsShowCart={setIsShowCart} />}
     </>
   );
 };

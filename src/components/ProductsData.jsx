@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import { getAllProducts } from "../api/api";
 import ProductCard from "./Product/";
 import Cart from "./Cart";
+import Filter from "./Filter";
 
 const ProductsData = ({ isShowCart, setIsShowCart }) => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [filters, setFilters] = useState([]);
+  const [filterdProducts, setFilterdProducts] = useState([]);
 
   useEffect(() => {
     const getProduct = async () => {
       const result = await getAllProducts();
-      console.log(result);
+      console.log("dowloadingProducts", result);
       setProducts(result);
-      setFilters(result);
+      setFilterdProducts(result);
     };
     getProduct();
   }, []);
@@ -21,7 +22,8 @@ const ProductsData = ({ isShowCart, setIsShowCart }) => {
   return (
     <div className="container ">
       <div className="flex flex-wrap my-4 container mx-auto">
-        {products.map(product => (
+        <Filter products={products} setFilterdProducts={setFilterdProducts} />
+        {filterdProducts.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
