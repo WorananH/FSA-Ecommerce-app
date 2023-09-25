@@ -1,70 +1,56 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import api from "../api/api";
 
-const Filter = ({ products, setFilterdProducts }) => {
+const Filter = ({ activeCategory, setActiveCategory }) => {
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [priceRange, setPriceRange] = useState(300);
-  const [sortBy, setSortBy] = useState("price");
-  console.log("onLoad", products);
-
-  function selectCategory(e) {
-    setSelectedCategory(e.target.value);
-  }
-
-  function selectSortBy(e) {
-    setSortBy(e.target.value);
-  }
-
-  function sortByPrice(ascending) {
-    let filteredProducts = [...products];
-    filteredProducts.sort((a, b) => {
-      if (!ascending) {
-        return b.price - a.price;
-      }
-      return a.price - b.price;
-    });
-    console.log("filtered", filteredProducts);
-    //setProducts(filteredProducts);
-  }
 
   useEffect(() => {
-    console.log("priceRangeChange", priceRange);
-    let filteredProducts = [...products];
-    console.log("original", products);
-    filteredProducts = filteredProducts.filter(
-      product => product.price <= priceRange
-    );
-    // return product.price <= priceRange;
+    async function fetchCategories() {
+      try {
+        const categoriesData = await api.getAllCategories();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
 
-    console.log("filtered", filteredProducts);
-    setFilterdProducts(filteredProducts);
-  }, [priceRange]);
+    fetchCategories();
+  }, []);
+
+  const onSelectCategory = category => {
+    setCategories([]); // Clear the categories
+    console.log(category); // Log the selected category
+  };
 
   return (
-    <div>
-      <h1>Products</h1>
-      <select onChange={selectCategory}>
-        <option value="all">All</option>
-        {categories.map(category => (
-          <option value={category} key={category}>
-            {category}
-          </option>
-        ))}
-      </select>
-      <input
-        type="range"
-        min="0"
-        max="300"
-        value={priceRange}
-        onChange={e => setPriceRange(e.target.value)}
-      />
-      <p>Price Range:$ {priceRange}</p>
-      <h3>Sort By</h3>
-      <select value={sortBy} onChange={selectSortBy}>
-        <option value="price">Price</option>
-        <option value="rating">Rating</option>
-      </select>
-      <ul></ul>
+    <div className="flex">
+      <div className="container text-left">
+        {/* Filters */}
+        <div className="flex justify-center pt-100">
+          {categories.map(category => (
+            <div
+              key={category.id}
+              onClick={() => {
+                setActiveCategory(category.id);
+                onSelectCategory(category.id);
+              }}
+            >
+              {category.title}
+            </div>
+          ))}
+        </div>
+        <h3>Categories</h3>
+        <select
+          value={activeCategory}
+          onChange={e => onSelectCategory(e.target.value)}
+        >
+          <option value="All Categories"></option>
+          <option value="Electronics">Electronics</option>
+          <option value="Jewelry">Jewelry</option>
+          <option value="Men's Clothing">Men's Clothing</option>
+          <option value="Women's Clothing">Women's Clothing</option>
+        </select>
+      </div>
     </div>
   );
 };

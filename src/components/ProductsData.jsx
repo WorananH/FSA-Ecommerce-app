@@ -3,11 +3,13 @@ import { getAllProducts } from "../api/api";
 import ProductCard from "./Product/";
 import Cart from "./Cart";
 import Filter from "./Filter";
+import SearchBar from "./SearchBar";
 
 const ProductsData = ({ isShowCart, setIsShowCart }) => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [filterdProducts, setFilterdProducts] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("All");
 
   useEffect(() => {
     const getProduct = async () => {
@@ -22,7 +24,13 @@ const ProductsData = ({ isShowCart, setIsShowCart }) => {
   return (
     <div className="container ">
       <div className="flex flex-wrap my-4 container mx-auto">
-        <Filter products={products} setFilterdProducts={setFilterdProducts} />
+        <div className="container mx-auto my-4">
+          <Filter
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
+          <SearchBar />
+        </div>
         {filterdProducts.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}

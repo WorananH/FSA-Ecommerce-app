@@ -1,22 +1,18 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useState, useContext } from "react";
+import HeaderLogin from "./HeaderLogin";
+//import { Link } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
-import httpRequest from "../../utils/request";
 import { loginUser } from "../../api/api";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const [user, setUser] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
   const navigate = useNavigate();
-
   const { login } = useContext(AuthContext);
-  // useEffect(() => {
-  //   if (authUser.email) {
-  //     navigate("/");
-  //   }
-  // }, [authUser.email, navigate]);
 
   const handleChange = e => {
     setUser(prev => {
@@ -45,46 +41,82 @@ const Login = () => {
   };
 
   return (
-    <div className=" inset-0 bg-[rgba(0,0,0,0.7)">
-      <div className="">
-        <form className="flex flex-col gap-2">
-          <h1 className="text-[2.5rem]">Login</h1>
-          <div className="flex flex-col">
-            <label htmlFor="email">Email</label>
-            <input
-              onChange={handleChange}
-              className="border border-gray-500 pl-2"
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={user.email}
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="password">Password</label>
-            <input
-              onChange={handleChange}
-              className="border border-gray-500 pl-2"
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              value={user.password}
-            />
-          </div>
-          <button
-            onClick={handleSubmit}
-            className="bg-blue-500 text-white  w-full py-1 font-bold"
+    <>
+      <HeaderLogin
+        heading="Login to your account"
+        paragraph="Don't have an account yet?"
+        linkName="Register"
+        linkUrl="/signup"
+      />
+
+      <form className="w-full max-w-sm mx-auto bg-white p-8 rounded-md ">
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="username"
           >
-            Login
-          </button>
-          <div>
-            <Link className="text-right text-[0.8rem]" to="/register">
-              Register
-            </Link>
+            Username:
+          </label>
+          <input
+            onChange={handleChange}
+            className="w-full px-6 py-2 border border-gray-700 rounded-md focus:outline-none"
+            type="text"
+            id="username"
+            placeholder="Enter your username"
+            autoComplete="username"
+            value={user.username}
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
+            Password:
+          </label>
+          <input
+            onChange={handleChange}
+            className="w-full px-6 py-2 border border-gray-700 rounded-md focus:outline-none"
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            autoComplete="current-password"
+            value={user.password}
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <input
+              id="remember-me"
+              name="remember-me"
+              type="checkbox"
+              className="h-4 w-4 text-black border-gray-300 rounded"
+            />
+            <label
+              htmlFor="remember-me"
+              className="ml-2 block text-sm text-gray-900"
+            >
+              Remember me
+            </label>
           </div>
-        </form>
-      </div>
-    </div>
+          <div className="text-sm">
+            <a
+              href="#"
+              className="font-medium text-blue-800 hover:text-blue-500"
+            >
+              Forgot your password?
+            </a>
+          </div>
+        </div>
+        <br />
+        <button
+          onSubmit={handleSubmit}
+          className="bg-gray-500 text-white  w-full py-1 font-bold cursor-pointer  hover:bg-black hover:text-white"
+        >
+          Login
+        </button>
+      </form>
+    </>
   );
 };
 

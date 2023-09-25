@@ -13,9 +13,13 @@ const ProductCard = ({ product, setIsShowCart }) => {
   });
 
   return (
-    <div className="flex-1 flex flex-col self-stretch items-center min-w-[300px] border-2 border-['lightgray'] px-2 mr-8 mb-4 mt-5 rounded-lg ">
+    <div className="flex-1 flex flex-col self-stretch items-center min-w-[300px] border-2 border-['lightgray'] px-2 mr-8 mb-4  rounded-lg ">
       <div className="w-[100px]">
-        <img className="w-full h-full" src={product.image} alt={product.name} />
+        <img
+          className="w-full h-full backdrop-contrast-125 bg-white/30 "
+          src={product.image}
+          alt={product.name}
+        />
       </div>
       <p>{product.title}</p>
       <h3 className="text-blue-800 font-bold">

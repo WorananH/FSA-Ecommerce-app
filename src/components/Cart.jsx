@@ -1,9 +1,10 @@
-import React, { useRef, useContext } from "react";
+import { useContext } from "react";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import { CartContext } from "../context/CartContext";
 
 const Cart = ({ setIsShowCart }) => {
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart, clearCart } =
+    useContext(CartContext);
 
   const total = arr => {
     return arr.reduce((cal, item) => {
@@ -53,6 +54,12 @@ const Cart = ({ setIsShowCart }) => {
             </div>
           ))}
           <p>Total:{DollarUsd.format(total(cart))}</p>
+          <button
+            className="bg-primary flex p-4 justify-center items-center text-white w-full font-medium"
+            onClick={clearCart}
+          >
+            Check Out
+          </button>
         </div>
       </div>
     </div>

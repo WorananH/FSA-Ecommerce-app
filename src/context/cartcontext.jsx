@@ -6,10 +6,12 @@ const CartContext = createContext({
   removeFromCart: () => {},
   increaseQuantity: () => {},
   decreaseQuantity: () => {},
+  clearCart: () => {},
 });
 
 function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [clear, setClear] = useState(false);
 
   const addToCart = item => {
     if (cart.find(i => i.id === item.id)) {
@@ -21,39 +23,42 @@ function CartProvider({ children }) {
     } else {
       setCart([...cart, { ...item, amount: 1 }]);
     }
-    //setCart([...cart, { ...item, amount: 1 }]);
   };
 
   const removeFromCart = index => {
     setCart(cart.filter((item, i) => i !== index));
   };
 
-  //Handle add cart
-  const increaseQuantity = product => {
-    setCart(prev => {
-      const findProductInCart = prev.find(item => item.id === product.id);
-      if (findProductInCart) {
-        return prev.map(
-          item =>
-            item.id === product.id ? { ...item, amount: item.amount + 1 } : item // : { item }
-        );
-      }
-      // firten add to cart
-      // return [...cart, product,];
-      return [...prev, { ...product, amount: 1 }];
-    });
+  // clear cart
+  const clearCart = () => {
+    setClear([]);
   };
 
-  const decreaseQuantity = id => {
-    setCart(prev => {
-      return prev.reduce((cal, item) => {
-        if (item.id !== id) {
-          if (item.amount === 1) return cal;
-          return [...cal, { ...item, amount: item.amount - 1 }];
-        }
-      }, []);
-    });
-  };
+  // //Handle add cart
+  // const increaseQuantity = product => {
+  //   setCart(prev => {
+  //     const findProductInCart = prev.find(item => item.id === product.id);
+  //     if (findProductInCart) {
+  //       return prev.map(
+  //         item =>
+  //           item.id === product.id ? { ...item, amount: item.amount + 1 } : item // : { item }
+  //       );
+  //     }
+
+  //     return [...prev, { ...product, amount: 1 }];
+  //   });
+  // };
+
+  // const decreaseQuantity = id => {
+  //   setCart(prev => {
+  //     return prev.reduce((cal, item) => {
+  //       if (item.id !== id) {
+  //         if (item.amount === 1) return cal;
+  //         return [...cal, { ...item, amount: item.amount - 1 }];
+  //       }
+  //     }, []);
+  //   });
+  // };
 
   return (
     <CartContext.Provider
@@ -61,8 +66,9 @@ function CartProvider({ children }) {
         cart,
         addToCart,
         removeFromCart,
-        increaseQuantity,
-        decreaseQuantity,
+        // increaseQuantity,
+        // decreaseQuantity,
+        clearCart,
       }}
     >
       {children}
