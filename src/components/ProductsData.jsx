@@ -21,6 +21,18 @@ const ProductsData = ({ isShowCart, setIsShowCart }) => {
     getProduct();
   }, []);
 
+  useEffect(() => {
+    if (activeCategory !== "All") {
+      setFilterdProducts(
+        products.filter(
+          product =>
+            product.category.toLowerCase() === activeCategory.toLowerCase()
+        )
+      );
+      console.log(filterdProducts);
+    }
+  }, [activeCategory]);
+
   return (
     <div className="container ">
       <div className="flex flex-wrap my-4 container mx-auto">

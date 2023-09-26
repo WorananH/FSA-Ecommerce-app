@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     // login(user);
 
-    if (!user.email || !user.password) {
+    if (!user.username || !user.password) {
       alert("Please fill all the fields");
       return;
     }
@@ -49,7 +49,10 @@ const Login = () => {
         linkUrl="/signup"
       />
 
-      <form className="w-full max-w-sm mx-auto bg-white p-8 rounded-md ">
+      <form
+        className="w-full max-w-sm mx-auto bg-white p-8 rounded-md "
+        onSubmit={handleSubmit}
+      >
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -110,7 +113,7 @@ const Login = () => {
         </div>
         <br />
         <button
-          onSubmit={handleSubmit}
+          type="submit"
           className="bg-gray-500 text-white  w-full py-1 font-bold cursor-pointer  hover:bg-black hover:text-white"
         >
           Login

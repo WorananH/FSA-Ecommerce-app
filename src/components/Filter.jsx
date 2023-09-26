@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../api/api";
+import { Link } from "react-router-dom";
 
 const Filter = ({ activeCategory, setActiveCategory }) => {
   const [categories, setCategories] = useState([]);
@@ -18,9 +19,10 @@ const Filter = ({ activeCategory, setActiveCategory }) => {
   }, []);
 
   const onSelectCategory = category => {
-    setCategories([]); // Clear the categories
+    setActiveCategory(category); // Clear the categories
     console.log(category); // Log the selected category
   };
+  console.log(categories, "Filters test!");
 
   return (
     <div className="flex">
@@ -31,8 +33,8 @@ const Filter = ({ activeCategory, setActiveCategory }) => {
             <div
               key={category.id}
               onClick={() => {
-                setActiveCategory(category.id);
-                onSelectCategory(category.id);
+                setActiveCategory(category);
+                // onSelectCategory(category.id);
               }}
             >
               {category.title}
@@ -44,9 +46,11 @@ const Filter = ({ activeCategory, setActiveCategory }) => {
           value={activeCategory}
           onChange={e => onSelectCategory(e.target.value)}
         >
-          <option value="All Categories"></option>
+          <option value="All Categories">
+            <Link to="/">All</Link>
+          </option>
           <option value="Electronics">Electronics</option>
-          <option value="Jewelry">Jewelry</option>
+          <option value="Jewelery">Jewelery</option>
           <option value="Men's Clothing">Men's Clothing</option>
           <option value="Women's Clothing">Women's Clothing</option>
         </select>

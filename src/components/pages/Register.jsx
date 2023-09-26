@@ -1,6 +1,8 @@
 import { useState } from "react";
 import api from "../../api/api";
 import HeaderLogin from "./HeaderLogin/";
+import { Link } from "react-router-dom";
+import { registerUser } from "../../api/api";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -8,15 +10,8 @@ export default function Register() {
 
   const submitForm = async e => {
     e.preventDefault();
-    const response = await api.post("/register", {
-      username,
-      password,
-    });
-    console.log(response);
-    if (response.status === 200) {
-      window.location.href = "/";
-    }
-    console.log(response);
+    const data = await registerUser(username, password); //sendint the post request
+    console.log(data);
   };
 
   return (
@@ -28,7 +23,10 @@ export default function Register() {
         linkUrl="/login"
       />
       <div className="container mx-auto py-8">
-        <form className="w-full max-w-sm mx-auto bg-white p-8 rounded-md ">
+        <form
+          className="w-full max-w-sm mx-auto bg-white p-8 rounded-md "
+          onSubmit={submitForm}
+        >
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -37,7 +35,7 @@ export default function Register() {
               Username:
             </label>
             <input
-              onChange={submitForm}
+              onChange={e => setUsername(e.target.value)}
               className="w-full px-6 py-2 border border-gray-700 rounded-md focus:outline-none"
               type="text"
               id="username"
@@ -54,7 +52,7 @@ export default function Register() {
               Password:
             </label>
             <input
-              onChange={submitForm}
+              onChange={e => setPassword(e.target.value)}
               className="w-full px-6 py-2 border border-gray-700 rounded-md focus:outline-none"
               type="password"
               id="password"
@@ -65,10 +63,10 @@ export default function Register() {
           </div>
 
           <button
-            onSubmit={submitForm}
+            type="submit"
             className="bg-gray-500 text-white  w-full py-1 font-bold cursor-pointer  hover:bg-black hover:text-white"
           >
-            Sign Up
+            Sign Up <Link to="/login">Login</Link>
           </button>
         </form>
       </div>
