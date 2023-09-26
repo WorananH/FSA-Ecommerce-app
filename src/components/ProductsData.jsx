@@ -33,6 +33,8 @@ const ProductsData = ({ isShowCart, setIsShowCart }) => {
     }
   }, [activeCategory]);
 
+  console.log();
+
   return (
     <div className="container ">
       <div className="flex flex-wrap my-4 container mx-auto">
