@@ -34,32 +34,6 @@ function CartProvider({ children }) {
     setClear([]);
   };
 
-  // //Handle add cart
-  // const increaseQuantity = product => {
-  //   setCart(prev => {
-  //     const findProductInCart = prev.find(item => item.id === product.id);
-  //     if (findProductInCart) {
-  //       return prev.map(
-  //         item =>
-  //           item.id === product.id ? { ...item, amount: item.amount + 1 } : item // : { item }
-  //       );
-  //     }
-
-  //     return [...prev, { ...product, amount: 1 }];
-  //   });
-  // };
-
-  // const decreaseQuantity = id => {
-  //   setCart(prev => {
-  //     return prev.reduce((cal, item) => {
-  //       if (item.id !== id) {
-  //         if (item.amount === 1) return cal;
-  //         return [...cal, { ...item, amount: item.amount - 1 }];
-  //       }
-  //     }, []);
-  //   });
-  // };
-
   return (
     <CartContext.Provider
       value={{
