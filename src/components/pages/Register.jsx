@@ -1,5 +1,4 @@
 import { useState } from "react";
-import api from "../../api/api";
 import HeaderLogin from "./HeaderLogin/";
 import { Link } from "react-router-dom";
 import { registerUser } from "../../api/api";
