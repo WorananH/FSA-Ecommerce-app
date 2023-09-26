@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
-import { CartContext } from "../context/cartcontext";
+import { CartContext } from "../context/CartContext";
 const ProductCard = ({ product, setIsShowCart }) => {
   const navigate = useNavigate();
 

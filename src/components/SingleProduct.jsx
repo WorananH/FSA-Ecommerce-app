@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { getSingleProduct } from "../api/api";
 import { useParams } from "react-router-dom";
-import { CartContext } from "../context/cartcontext";
+import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
 import Filter from "./Filter";

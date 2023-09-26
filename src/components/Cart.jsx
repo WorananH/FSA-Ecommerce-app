@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
-import { CartContext } from "../context/cartcontext";
+import { CartContext } from "../context/CartContext";
 
 const Cart = ({ setIsShowCart }) => {
   const { cart, addToCart, removeFromCart, clearCart } =
