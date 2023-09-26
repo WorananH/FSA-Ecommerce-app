@@ -6,7 +6,7 @@ import { useState } from "react";
 import Footer from "./components/pages/Footer";
 import "./App.css";
 import SingleProduct from "./components/SingleProduct";
-import { CartProvider } from "./context/CartContext";
+import { CartProvider } from "./context/cartcontext";
 import Register from "./components/pages/Register";
 
 function App() {

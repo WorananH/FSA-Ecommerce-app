@@ -3,7 +3,7 @@ import { GiShoppingCart } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import { useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../context/cartcontext";
 
 const Header = ({ setIsShowCart }) => {
   const { login, logout, isLoggedIn } = useContext(AuthContext);
