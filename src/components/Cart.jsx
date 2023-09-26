@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = ({ setIsShowCart }) => {
   const { cart, addToCart, removeFromCart, clearCart } =
     useContext(CartContext);
+  const navigate = useNavigate();
 
   const total = arr => {
     return arr.reduce((cal, item) => {
@@ -15,6 +17,11 @@ const Cart = ({ setIsShowCart }) => {
     style: "currency",
     currency: "USD",
   });
+
+  const handleClearCart = () => {
+    clearCart();
+    navigate("/complete");
+  };
 
   return (
     <div
@@ -47,7 +54,7 @@ const Cart = ({ setIsShowCart }) => {
                 <button onClick={() => addToCart(item)}>
                   <AiFillPlusCircle className="text-[20px] text-gray-400" />
                 </button>
-                <button onClick={() => removeFromCart(i)}>
+                <button onClick={() => removeFromCart(item)}>
                   <AiFillMinusCircle className="text-[20px] text-gray-400" />
                 </button>
               </div>
@@ -55,8 +62,8 @@ const Cart = ({ setIsShowCart }) => {
           ))}
           <p>Total:{DollarUsd.format(total(cart))}</p>
           <button
-            className="bg-primary flex p-4 justify-center items-center text-white w-full font-medium"
-            onClick={clearCart}
+            className="bg-primary flex p-4 justify-center items-center text-black w-full font-medium"
+            onClick={handleClearCart}
           >
             Check Out
           </button>

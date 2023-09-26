@@ -11,7 +11,7 @@ const CartContext = createContext({
 
 function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
-  const [clear, setClear] = useState(false);
+  // const [clear, setClear] = useState(false);
 
   const addToCart = item => {
     if (cart.find(i => i.id === item.id)) {
@@ -25,13 +25,24 @@ function CartProvider({ children }) {
     }
   };
 
-  const removeFromCart = index => {
-    setCart(cart.filter((item, i) => i !== index));
+  const removeFromCart = item => {
+    const itemIndex = cart.findIndex(i => i.id === item.id);
+
+    if (itemIndex !== -1) {
+      const updatedCart = [...cart];
+      if (updatedCart[itemIndex].amount > 1) {
+        updatedCart[itemIndex].amount--;
+      } else {
+        updatedCart.splice(itemIndex, 1);
+      }
+      setCart(updatedCart);
+    }
+    console.log(cart);
   };
 
   // clear cart
   const clearCart = () => {
-    setClear([]);
+    setCart([]);
   };
 
   return (
@@ -40,8 +51,6 @@ function CartProvider({ children }) {
         cart,
         addToCart,
         removeFromCart,
-        // increaseQuantity,
-        // decreaseQuantity,
         clearCart,
       }}
     >

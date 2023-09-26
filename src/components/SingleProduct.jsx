@@ -5,6 +5,7 @@ import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
 import Filter from "./Filter";
+import SortCat from "./SortCat";
 
 export const SingleProduct = ({ isShowCart, setIsShowCart }) => {
   const [product, setProduct] = useState({});

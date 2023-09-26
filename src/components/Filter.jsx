@@ -46,9 +46,7 @@ const Filter = ({ activeCategory, setActiveCategory }) => {
           value={activeCategory}
           onChange={e => onSelectCategory(e.target.value)}
         >
-          <option value="All Categories">
-            <Link to="/">All</Link>
-          </option>
+          <option value="All">All</option>
           <option value="Electronics">Electronics</option>
           <option value="Jewelery">Jewelery</option>
           <option value="Men's Clothing">Men's Clothing</option>

@@ -8,6 +8,7 @@ import "./App.css";
 import SingleProduct from "./components/SingleProduct";
 import { CartProvider } from "./context/CartContext";
 import Register from "./components/pages/Register";
+import PurchaseComplete from "./components/PurchaseComplete";
 
 function App() {
   const [isShowCart, setIsShowCart] = useState(false);
@@ -37,9 +38,10 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
+          <Route path="/complete" element={<PurchaseComplete />} />
         </Routes>
+        <Footer />
       </CartProvider>
-      <Footer />
     </div>
   );
 }

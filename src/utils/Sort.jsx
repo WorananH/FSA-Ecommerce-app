@@ -1,33 +1,30 @@
-import categoriesSort from "./categoriesSort";
-
-export const sortPriceLoToHight = async Product => {
-  const productInCart = [...Product.cart];
-  productInCart.sort((a, b) => a.price - b.price);
-
-  const category = await categoriesSort(productInCart);
-  return category;
+export const sortPriceAscending = (filteredProducts, setFilteredProducts) => {
+  console.log(filteredProducts);
+  filteredProducts.sort((a, b) => a.price - b.price);
+  console.log(filteredProducts);
+  setFilteredProducts(filteredProducts);
 };
 
-export const sortPriceHightToLow = async Product => {
-  const productInCart = [...Product.cart];
-  productInCart.sort((a, b) => b.price - a.price);
-
-  const category = await categoriesSort(productInCart);
-  return category;
+export const sortPriceDescending = (filteredProducts, setFilteredProducts) => {
+  filteredProducts.sort((a, b) => b.price - a.price);
+  setFilteredProducts(filteredProducts);
 };
 
-export const sortPriceLessThanHundred = async Product => {
-  const productInCart = [...Product.cart];
-  const filteredProducts = productInCart.filter(product => product.price < 100);
+export const sortTitleAscending = (filteredProducts, setFilteredProducts) => {
+  filteredProducts.sort((a, b) => a.title - b.title);
+  setFilteredProducts(filteredProducts);
+};
 
-  const category = await categoriesSort(filteredProducts);
-  return category;
+export const sortTitleDescending = (filteredProducts, setFilteredProducts) => {
+  filteredProducts.sort((a, b) => b.title - a.title);
+  setFilteredProducts(filteredProducts);
 };
 
 const sort = {
-  priceLoToHight: sortPriceLoToHight,
-  priceHightToLow: sortPriceHightToLow,
-  priceLessThanHundred: sortPriceLessThanHundred,
+  sortPriceAscending,
+  sortPriceDescending,
+  sortTitleAscending,
+  sortTitleDescending,
 };
 
 export default sort;
