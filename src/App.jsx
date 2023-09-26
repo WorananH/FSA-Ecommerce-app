@@ -1,7 +1,7 @@
 import Header from "./components/pages/Header";
 import ProductsData from "./components/ProductsData";
 import { Routes, Route } from "react-router-dom";
-import Login from "./components/pages/Logining";
+import Login from "./components/pages/Login";
 import { useState } from "react";
 import Footer from "./components/pages/Footer";
 import "./App.css";
