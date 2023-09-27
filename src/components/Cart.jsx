@@ -62,7 +62,7 @@ const Cart = ({ setIsShowCart }) => {
           ))}
           <p>Total:{DollarUsd.format(total(cart))}</p>
           <button
-            className="bg-primary flex p-4 justify-center items-center text-black w-full font-medium"
+            className="bg-white border-2 border-gray-500 rounded-lg px-4 py-2 mr-2 color-blue-800 hover:bg-green-700 hover:text-white font-bold mt-3"
             onClick={handleClearCart}
           >
             Check Out
