@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../api/api";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 const Filter = ({ activeCategory, setActiveCategory }) => {
   const [categories, setCategories] = useState([]);
